@@ -110,3 +110,35 @@ function identiconTemplate(_address) {
     </div>
     `;
 }
+
+function notification(_text) {
+  document.querySelector(".alert").style.display = "block";
+  document.querySelector("#notification").textContent = _text;
+}
+
+function notificationOff() {
+  document.querySelector(".alert").style.display = "none";
+}
+
+window.addEventListener("load", () => {
+  notification("⌛ Loading...");
+  getBalance();
+  renderProduct();
+  notificationOff();
+});
+
+document.querySelector("#newProductBtn").addEventListener("click", () => {
+  const _product = {
+    owner: "0x2EF48F32eB0AEB90778A2170a0558A941b72BFFb",
+    name: document.getElementById("newProductName").value,
+    image: document.getElementById("newImgUrl").value,
+    description: document.getElementById("newProductDescription").value,
+    location: document.getElementById("newLocation").value,
+    price: document.getElementById("newPrice").value,
+    sold: 0,
+    index: products.length,
+  };
+  products.push(_product);
+  notification(`🎉 You successfully added "${_product.name}".`);
+  renderProducts();
+});
